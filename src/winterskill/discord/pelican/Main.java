@@ -11,6 +11,8 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 
 public class Main {
+	public static JDA jda;
+	
 	public static void main(String[] args) {
 		String token = "";
 		
@@ -46,7 +48,7 @@ public class Main {
 		// fin de la lecture de .token.txt
 		
 		try {
-			JDA jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
+			jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
 			jda.addEventListener(new BotListener());
 		} catch (LoginException e) {
 			e.printStackTrace();

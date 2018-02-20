@@ -47,6 +47,7 @@ public class Main {
 		
 		try {
 			JDA jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
+			jda.addEventListener(new BotListener());
 		} catch (LoginException e) {
 			e.printStackTrace();
 			return;

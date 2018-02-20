@@ -1,0 +1,6 @@
+package winterskill.discord.pelican;
+
+public class Main {
+	public static void main(String[] args) {
+	}
+}

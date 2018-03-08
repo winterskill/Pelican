@@ -18,6 +18,11 @@ import winterskill.discord.pelican.Main;
 public final class CommandMap {
 	private final Map<String, SimpleCommand> commands = new HashMap<>();
 	private final String                     tag      = "/";
+	private       Main                       main;
+	
+	public CommandMap(Main m) {
+		this.main = m;
+	}
 	
 	public String getTag() {
 		return this.tag;
@@ -110,7 +115,7 @@ public final class CommandMap {
 			else if (parameters[i].getType() == Message.class)
 				objects[i] = message;
 			else if (parameters[i].getType() == JDA.class)
-				objects[i] = Main.jda;
+				objects[i] = this.main.getJDA();
 			else if (parameters[i].getType() == MessageChannel.class)
 				objects[i] = message.getChannel();
 		}

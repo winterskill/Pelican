@@ -4,16 +4,35 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import java.util.Scanner;
+
 import javax.security.auth.login.LoginException;
 
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 
-public class Main {
-	public static JDA jda;
+import winterskill.discord.pelican.commands.CommandMap;
+
+public class Main implements Runnable {
+	private JDA jda;
+	private final CommandMap commandMap = new CommandMap(this);
+	private boolean running;
+	private final Scanner sc = new Scanner(System.in);
 	
-	public static void main(String[] args) {
+	public void setRunning(boolean b) {
+		this.running = b;
+	}
+	
+	public boolean getRunning() {
+		return this.running;
+	}
+	
+	public JDA getJDA() {
+		return this.jda;
+	}
+	
+	public Main() throws LoginException {
 		String token = "";
 		
 		// lecture du fichier .token.txt qui contient le token
@@ -47,9 +66,28 @@ public class Main {
 		
 		// fin de la lecture de .token.txt
 		
+		jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
+		jda.addEventListener(new BotListener(this.commandMap));
+	}
+	
+	@Override
+	public void run() {
+		this.setRunning(true);
+		
+		while (this.running) {
+			if (this.sc.hasNextLine())
+				this.commandMap.commandConsole(this.sc.nextLine());
+		}
+		
+		this.sc.close();
+		jda.shutdown();
+		System.exit(0);
+	}
+	
+	public static void main(String[] args) {
 		try {
-			jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
-			jda.addEventListener(new BotListener());
+			Main main = new Main();
+			new Thread(main, "bot").start();
 		} catch (LoginException e) {
 			e.printStackTrace();
 			return;

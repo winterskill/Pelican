@@ -14,6 +14,9 @@ import net.dv8tion.jda.core.JDABuilder;
 
 import winterskill.discord.pelican.commands.CommandMap;
 
+import winterskill.discord.pelican.commands.base.HelloWorldCommand;
+import winterskill.discord.pelican.commands.base.StopCommand;
+
 public class Main implements Runnable {
 	private JDA jda;
 	private final CommandMap commandMap = new CommandMap(this);
@@ -65,6 +68,9 @@ public class Main implements Runnable {
 		System.out.print(token);
 		
 		// fin de la lecture de .token.txt
+		
+		this.commandMap.registerCommand(new HelloWorldCommand(this));
+		this.commandMap.registerCommand(new StopCommand(this));
 		
 		jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
 		jda.addEventListener(new BotListener(this.commandMap));

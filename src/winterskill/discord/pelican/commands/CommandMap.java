@@ -103,13 +103,13 @@ public final class CommandMap {
 			if (parameters[i].getType() == String[].class)
 				objects[i] = args;
 			else if (parameters[i].getType() == User.class)
-				objects[i] = message == null ? null : message.getAuthor();
+				objects[i] = (message == null) ? null : message.getAuthor();
 			else if (parameters[i].getType() == TextChannel.class)
-				objects[i] = message == null ? null : message.getTextChannel();
+				objects[i] = (message == null) ? null : message.getTextChannel();
 			else if (parameters[i].getType() == PrivateChannel.class)
-				objects[i] = message == null ? null : message.getPrivateChannel();
+				objects[i] = (message == null) ? null : message.getPrivateChannel();
 			else if (parameters[i].getType() == Guild.class)
-				objects[i] = message == null ? null : message.getGuild();
+				objects[i] = (message == null) ? null : message.getGuild();
 			else if (parameters[i].getType() == String.class)
 				objects[i] = command;
 			else if (parameters[i].getType() == Message.class)
@@ -117,7 +117,7 @@ public final class CommandMap {
 			else if (parameters[i].getType() == JDA.class)
 				objects[i] = this.main.getJDA();
 			else if (parameters[i].getType() == MessageChannel.class)
-				objects[i] = message.getChannel();
+				objects[i] = (message == null) ? null : message.getChannel();
 		}
 		
 		simpleCommand.getMethod().invoke(simpleCommand.getObject(), objects);

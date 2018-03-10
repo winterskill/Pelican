@@ -15,7 +15,7 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 
 import winterskill.discord.pelican.commands.CommandMap;
-
+import winterskill.discord.pelican.commands.base.ChelpCommand;
 import winterskill.discord.pelican.commands.base.HelloWorldCommand;
 import winterskill.discord.pelican.commands.base.HelpCommand;
 import winterskill.discord.pelican.commands.base.InfoCommand;
@@ -81,6 +81,7 @@ public class Main implements Runnable {
 		this.commandMap.registerCommand(new InfoCommand(this));
 		
 		// enregistrement des commandes console
+		this.commandMap.registerCommand(new ChelpCommand(this.commandMap));
 		this.commandMap.registerCommand(new StopCommand(this));
 		
 		jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();

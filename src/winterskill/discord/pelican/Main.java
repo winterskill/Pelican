@@ -11,7 +11,7 @@ import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-
+import net.dv8tion.jda.core.entities.Game;
 import winterskill.discord.pelican.commands.CommandMap;
 import winterskill.discord.pelican.commands.base.HelloWorldCommand;
 import winterskill.discord.pelican.commands.base.InfoCommand;
@@ -75,6 +75,8 @@ public class Main implements Runnable {
 		
 		jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
 		jda.addEventListener(new BotListener(this.commandMap));
+		
+		this.jda.getPresence().setGame(Game.playing("/help | http://cpc.cx/lso"));
 	}
 	
 	@Override

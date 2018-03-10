@@ -11,9 +11,13 @@ import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+
 import net.dv8tion.jda.core.entities.Game;
+
 import winterskill.discord.pelican.commands.CommandMap;
+
 import winterskill.discord.pelican.commands.base.HelloWorldCommand;
+import winterskill.discord.pelican.commands.base.HelpCommand;
 import winterskill.discord.pelican.commands.base.InfoCommand;
 import winterskill.discord.pelican.commands.base.StopCommand;
 
@@ -69,9 +73,15 @@ public class Main implements Runnable {
 		
 		// fin de la lecture de .token.txt
 		
+		// enregistrement des commandes user
+		// merci de les enregistrer dans l'ordre alphabétique.
+		// ah bah non en fait je crois qu'il y a pas de changements
 		this.commandMap.registerCommand(new HelloWorldCommand(this));
-		this.commandMap.registerCommand(new StopCommand(this));
+		this.commandMap.registerCommand(new HelpCommand(this.commandMap));
 		this.commandMap.registerCommand(new InfoCommand(this));
+		
+		// enregistrement des commandes console
+		this.commandMap.registerCommand(new StopCommand(this));
 		
 		jda = new JDABuilder(AccountType.BOT).setToken(token).buildAsync();
 		jda.addEventListener(new BotListener(this.commandMap));

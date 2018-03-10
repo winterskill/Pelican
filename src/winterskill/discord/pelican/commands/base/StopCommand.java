@@ -11,7 +11,7 @@ public class StopCommand {
 		this.m = m;
 	}
 	
-	@Command(name="stop",type=ExecutorType.CONSOLE, description="stop the execution of the bot")
+	@Command(name="stop",type=ExecutorType.CONSOLE, description="stop the execution of the bot.")
 	public void cmd() {
 		this.m.setRunning(false);
 	}
